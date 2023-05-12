@@ -24,9 +24,15 @@ RUN apt upgrade -y
 RUN apt install -y php7.2-mongodb
 RUN apt-get install -y php-pear php7.2-dev libyaml-dev
 RUN pecl install mongodb
+
 RUN echo "extension=mongodb.so" >> php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"
 
 ADD ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["supervisord"]
 
 COPY ./default /etc/nginx/sites-available/default
+
+RUN apt update -y
+
+RUN mkdir /home/session
+RUN chmod 777 /home/session
