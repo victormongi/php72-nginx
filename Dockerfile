@@ -34,5 +34,8 @@ COPY ./default /etc/nginx/sites-available/default
 
 RUN apt update -y
 
+USER root
+
 RUN mkdir /home/session
-RUN chmod 777 /home/session
+RUN chmod -R 777 /home/session
+RUN chown -R www-data:www-data /home/session
